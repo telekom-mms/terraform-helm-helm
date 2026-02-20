@@ -6,7 +6,7 @@
     "homepage": "https://telekom-mms.github.io/terraform-helm-helm",
     "topics": [
       "terraform",
-      "azure"
+      "helm"
     ]
   }
 }
