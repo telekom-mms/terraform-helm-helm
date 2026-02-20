@@ -1,0 +1,12 @@
+{
+  "repos": {
+    "description": "A Terraform module that manages the helm helm resources from the helm provider.",
+    "visibility": "public",
+    "default_branch": "main",
+    "homepage": "https://telekom-mms.github.io/terraform-helm-helm",
+    "topics": [
+      "terraform",
+      "azure"
+    ]
+  }
+}
