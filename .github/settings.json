@@ -5,8 +5,9 @@
     "default_branch": "main",
     "homepage": "https://telekom-mms.github.io/terraform-helm-helm",
     "topics": [
-      "terraform",
-      "helm"
+      "helm",
+      "release",
+      "terraform"
     ]
   }
 }
