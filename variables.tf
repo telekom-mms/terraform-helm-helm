@@ -1,4 +1,4 @@
-variable "helm_release" {
+variable "release" {
   type        = any
   default     = {}
   description = "Resource definition, default settings are defined within locals and merged with var settings. For more information look at [Outputs](#Outputs)."
@@ -7,7 +7,7 @@ variable "helm_release" {
 locals {
   default = {
     // resource definition
-    helm_release = {
+    release = {
       name                       = ""
       repository                 = null
       values                     = null
@@ -48,19 +48,19 @@ locals {
   }
 
   // compare and merge custom and default values
-  helm_release_values = {
-    for helm_release in keys(var.helm_release) :
-    helm_release => merge(local.default.helm_release, var.helm_release[helm_release])
+  release_values = {
+    for release in keys(var.release) :
+    release => merge(local.default.release, var.release[release])
   }
 
   // merge all custom and default values for complex nested structures
-  helm_release = {
-    for helm_release in keys(var.helm_release) :
-    helm_release => merge(
-      local.helm_release_values[helm_release],
+  release = {
+    for release in keys(var.release) :
+    release => merge(
+      local.release_values[release],
       {
         for config in ["set", "set_sensitive"] :
-        config => merge(local.default.helm_release[config], try(var.helm_release[helm_release][config], {}))
+        config => merge(local.default.release[config], try(var.release[release][config], {}))
       }
     )
   }

@@ -1,9 +1,9 @@
-output "helm_release" {
+output "release" {
   description = "Outputs all attributes of helm_release."
   value = {
-    for helm_release in keys(helm_release.helm_release) :
-    helm_release => {
-      for key, value in helm_release.helm_release[helm_release] :
+    for release in keys(helm_release.release) :
+    release => {
+      for key, value in helm_release.release[release] :
       key => value
     }
   }
@@ -17,9 +17,9 @@ output "variables" {
       variable => local.default[variable]
     }
     merged = {
-      helm_release = {
-        for key in keys(var.helm_release) :
-        key => local.helm_release[key]
+      release = {
+        for key in keys(var.release) :
+        key => local.release[key]
       }
     }
   }
