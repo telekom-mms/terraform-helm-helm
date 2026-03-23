@@ -1,5 +1,5 @@
 module "helm" {
-  source = "git::https://github.com/telekom-mms/terraform-helm-helm"
+  source = "registry.terraform.io/telekom-mms/terraform-helm-helm"
   helm_release = {
     k8s-release = {
       chart                      = "k8s"
@@ -29,20 +29,20 @@ module "helm" {
       dependency_update          = true
       replace                    = true
       devel                      = false
-      set = {
-        example_set = {
+      set = [
+        {
           name  = "some.value"
           value = "true"
           type  = "string"
         }
-      }
-      set_sensitive = {
-        example_sensitive = {
+      ]
+      set_sensitive = [
+        {
           name  = "some.sensitive.value"
           value = "sensitive"
           type  = "string"
         }
-      }
+      ]
     }
   }
 }

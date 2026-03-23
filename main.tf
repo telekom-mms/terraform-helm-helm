@@ -42,35 +42,7 @@ resource "helm_release" "release" {
   repository_username        = local.release[each.key].repository_username
   repository_password        = local.release[each.key].repository_password
   devel                      = local.release[each.key].devel
-
-  dynamic "set" {
-    for_each = local.release[each.key].set == {} ? [] : [0]
-
-
-    content {
-      name  = local.release[each.key].set[set.key].name == "" ? set.key : local.release[each.key].set[set.key].name
-      value = local.release[each.key].set[set.key].value
-      type  = local.release[each.key].set[set.key].type
-    }
-  }
-
-  dynamic "set_sensitive" {
-    for_each = local.release[each.key].set_sensitive == {} ? [] : [0]
-
-    content {
-      name  = local.release[each.key].set_sensitive[set_sensitive.key].name == "" ? set_sensitive.key : local.release[each.key].set_sensitive[set_sensitive.key].name
-      value = local.release[each.key].set_sensitive[set_sensitive.key].value
-      type  = local.release[each.key].set_sensitive[set_sensitive.key].type
-    }
-  }
-
-  dynamic "postrender" {
-    for_each = local.release[each.key].postrender == null ? [] : [0]
-
-    content {
-      binary_path = local.release[each.key].postrender.binary_path
-      args        = local.release[each.key].postrender.args
-    }
-  }
-
+  set                        = local.release[each.key].set
+  set_sensitive              = local.release[each.key].set_sensitive
+  postrender                 = local.release[each.key].postrender
 }

@@ -40,10 +40,9 @@ locals {
       repository_username        = null
       repository_password        = null
       devel                      = null
-      set                        = {}
-      set_sensitive              = {}
-      // postrender is complex, merging handled in post-processing if needed
-      postrender = null
+      set                        = []
+      set_sensitive              = []
+      postrender                 = []
     }
   }
 
@@ -59,7 +58,7 @@ locals {
     release => merge(
       local.release_values[release],
       {
-        for config in ["set", "set_sensitive"] :
+        for config in ["set", "set_sensitive", "postrender"] :
         config => merge(local.default.release[config], try(var.release[release][config], {}))
       }
     )
