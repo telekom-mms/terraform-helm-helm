@@ -44,7 +44,8 @@ resource "helm_release" "release" {
   devel                      = local.helm_release[each.key].devel
 
   dynamic "set" {
-    for_each = local.helm_release[each.key].set
+    for_each = local.helm_release[each.key].set == {} ? [] : [0]
+
 
     content {
       name  = local.helm_release[each.key].set[set.key].name == "" ? set.key : local.helm_release[each.key].set[set.key].name
@@ -54,7 +55,7 @@ resource "helm_release" "release" {
   }
 
   dynamic "set_sensitive" {
-    for_each = local.helm_release[each.key].set_sensitive
+    for_each = local.helm_release[each.key].set_sensitive == {} ? [] : [0]
 
     content {
       name  = local.helm_release[each.key].set_sensitive[set_sensitive.key].name == "" ? set_sensitive.key : local.helm_release[each.key].set_sensitive[set_sensitive.key].name
@@ -64,7 +65,7 @@ resource "helm_release" "release" {
   }
 
   dynamic "postrender" {
-    for_each = local.helm_release[each.key].postrender != null ? [0] : []
+    for_each = local.helm_release[each.key].postrender == null ? [] : [0]
 
     content {
       binary_path = local.helm_release[each.key].postrender.binary_path
